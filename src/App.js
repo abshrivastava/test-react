@@ -17,13 +17,20 @@ class App extends Component {
         name: 'Abhishek1',
         lName: 'Shrivastava1'
     })
+    this.refs.headerChild.changeState();
+  }
+  changeStateThroughNode = (name,lname) => {
+    this.setState({
+        name: name,
+        lName: lname
+    })
   }
   render() {
     return (
       <div>
         <div><img src={this.state.logo} /> <img src={this.state.logo} /> <img src={this.state.logo} /></div>
-        <Header headerProp = {this.state.name} changeStateProp= {this.changeState} />
-        <Footer FooterProp = {this.state.lName} />
+        <Header headerProp = {this.state.name} changeStateThroughNode = {this.changeStateThroughNode} ref="headerChild" />
+        <Footer FooterProp = {this.state.lName} changeStateProp= {this.changeState} />
         <button onClick= {this.changeState}>Click to change</button>
       </div>
     );
@@ -31,11 +38,13 @@ class App extends Component {
 }
 
 class Header extends Component {
+  changeState = () => {
+    this.props.changeStateThroughNode("Abhishek3","shrivastav3")
+  }
   render() {
     return (
       <div>
-      <div>{this.props.headerProp}</div>
-      <button onClick={this.props.changeStateProp}>Child Button</button>
+        <div>{this.props.headerProp}</div>
       </div>
     );
   }
@@ -44,7 +53,10 @@ class Header extends Component {
 class Footer extends Component {
   render() {
     return (
+      <div>
       <div>{this.props.FooterProp}</div>
+      <button onClick={this.props.changeStateProp}>Child Button</button>
+      </div>
     );
   }
 }
