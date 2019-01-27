@@ -1,61 +1,118 @@
 import React, { Component } from 'react';
-import logo from './thumbnail.png';
+// import logo from './thumbnail.png';
 import './App.css';
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       name: 'Abhishek',
+//       lName: 'Shrivastava',
+//       // logo: logo
+//     }
+//   }
+
+
+//   changeStateChild = (name,lname) => {
+//     this.setState({
+//         name: name,
+//         lName: lname
+//     })
+//   }
+//   render() {
+//     return (
+//       <div className="container">
+//         <Header headerProp = {this.state.name} changeStateChild = {this.changeStateChild} />
+//       </div>
+//     );
+//   }
+// }
+
+// class Header extends Component {
+//   changeStateEvent = () => {
+//     this.props.changeStateChild("Abhishek3","shrivastav3")
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <div>{this.props.headerProp}</div>
+//         <button onClick={this.changeStateEvent}>Child Button</button>
+//       </div>
+//     );
+//   }
+// }
+
+// class App extends Component {
+//   changeStateEvent = () => {
+//     this.refs.headerChild.changeStateChild('Abhishek', 'Don')  
+//   }
+//   render() {
+//     return (
+//       <div className="container">
+//         <Header ref="headerChild" />
+//         <button onClick={this.changeStateEvent}>Child Button</button>
+//       </div>
+//     );
+//   }
+// }
+
+// class Header extends Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       name: 'Abhishek Child',
+//       lName: 'Shrivastava'
+//     }
+//   }
+//   changeStateChild = (name,lname) => {
+//     this.setState({
+//         name: name,
+//         lName: lname
+//     })
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <div>{this.state.name}</div>
+//       </div>
+//     );
+//   }
+
+// }
 
 class App extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      name: 'Abhishek',
-      lName: 'Shrivastava',
-      logo: logo
+      super(props);
+      this.state = {
+        list: [
+          { id: '1', name: 'Aarav', age: 1 },
+          { id: '2', name: 'Abhishek', age:40 },
+          { id: '3', name: 'Tuli', age: 22 },
+        ],
+      };
     }
-  }
-
-  changeState = () => {
-    this.setState({
-        name: 'Abhishek1',
-        lName: 'Shrivastava1'
-    })
-    this.refs.headerChild.changeState();
-  }
-  changeStateThroughNode = (name,lname) => {
-    this.setState({
-        name: name,
-        lName: lname
-    })
-  }
   render() {
     return (
-      <div>
-        <div><img src={this.state.logo} /> <img src={this.state.logo} /> <img src={this.state.logo} /></div>
-        <Header headerProp = {this.state.name} changeStateThroughNode = {this.changeStateThroughNode} ref="headerChild" />
-        <Footer FooterProp = {this.state.lName} changeStateProp= {this.changeState} />
-        <button onClick= {this.changeState}>Click to change</button>
+      <div className="container">
+        <TodoList data={this.state.list} />
       </div>
     );
   }
 }
 
-class Header extends Component {
-  changeState = () => {
-    this.props.changeStateThroughNode("Abhishek3","shrivastav3")
-  }
+class TodoList extends Component {
   render() {
     return (
       <div>
-        <div>{this.props.headerProp}</div>
-      </div>
-    );
-  }
-}
-
-class Footer extends Component {
-  render() {
-    return (
-      <div>
-      <div>{this.props.FooterProp}</div>
-      <button onClick={this.props.changeStateProp}>Child Button</button>
+         <ul>
+          {this.props.data.map(item => (
+            <li key={item.id}>
+              Id: {item.id}<br />
+              Name: {item.name}<br />
+              Age: {item.age}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
